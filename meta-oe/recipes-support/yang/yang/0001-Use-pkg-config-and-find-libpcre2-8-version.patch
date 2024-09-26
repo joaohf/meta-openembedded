@@ -1,0 +1,29 @@
+From 5f402f562bbba0d84c7f376359488507e3e0e69c Mon Sep 17 00:00:00 2001
+From: Kas User <kas@example.com>
+Date: Sun, 27 Jun 2021 19:59:11 -0300
+Subject: [PATCH] Use pkg-config and find libpcre2-8 version
+
+---
+ CMakeModules/FindPCRE2.cmake | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeModules/FindPCRE2.cmake b/CMakeModules/FindPCRE2.cmake
+index 8f60daa2..2abd443a 100644
+--- a/CMakeModules/FindPCRE2.cmake
++++ b/CMakeModules/FindPCRE2.cmake
+@@ -12,7 +12,7 @@ FIND_PATH(PCRE2_INCLUDE_DIR pcre2.h)
+ FIND_LIBRARY(PCRE2_LIBRARY NAMES libpcre2.a pcre2-8)
+ 
+ # Check required version
+-execute_process(COMMAND pcre2-config --version OUTPUT_VARIABLE PCRE2_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
++execute_process(COMMAND pkg-config --modversion libpcre2-8 OUTPUT_VARIABLE PCRE2_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
+ 
+ # Handle the QUIETLY and REQUIRED arguments and set PCRE_FOUND to TRUE if all listed variables are TRUE.
+ INCLUDE(FindPackageHandleStandardArgs)
+@@ -27,4 +27,4 @@ ELSE(PCRE2_FOUND)
+     SET(PCRE_INCLUDE_DIRS)
+ ENDIF(PCRE2_FOUND)
+ 
+-MARK_AS_ADVANCED(PCRE2_INCLUDE_DIRS PCRE2_LIBRARIES)
+\ No newline at end of file
++MARK_AS_ADVANCED(PCRE2_INCLUDE_DIRS PCRE2_LIBRARIES)
